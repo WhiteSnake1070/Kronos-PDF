@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 
@@ -29,6 +30,7 @@ public class CompressFrame extends javax.swing.JFrame {
     private final List<File> pdfFiles;
     DefaultListModel<String> model = new DefaultListModel<>();
     Functions fun = new Functions();
+    private static CompressFrame instancia;
 
     /**
      * Creates new form CompressFrame
@@ -55,6 +57,11 @@ public class CompressFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Comprimir PDF");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         uploadComButton.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Blue"));
         uploadComButton.setText("Cargar archivo");
@@ -165,6 +172,11 @@ public class CompressFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_convertComButtonActionPerformed
 
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        instancia = null;
+        dispose();
+    }//GEN-LAST:event_formWindowClosed
+
     /**
      * @param args the command line arguments
      */
@@ -206,4 +218,15 @@ public class CompressFrame extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton uploadComButton;
     // End of variables declaration//GEN-END:variables
+
+    public static CompressFrame getInstancia(){
+        if (instancia == null){
+            instancia = new CompressFrame();
+            instancia.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            instancia.setVisible(true);
+            
+        }
+        return instancia;
+    }
+
 }

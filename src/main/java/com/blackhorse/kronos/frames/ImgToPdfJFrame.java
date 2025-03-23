@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -26,6 +27,7 @@ public class ImgToPdfJFrame extends javax.swing.JFrame {
     private final List<File> imgFiles;
     DefaultListModel<String> model = new DefaultListModel<>();
     Functions fun = new Functions();
+    private static ImgToPdfJFrame instancia;
 
     /**
      * Creates new form ImgToPdfJFrame
@@ -51,6 +53,11 @@ public class ImgToPdfJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Imágenes a PDF");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         uploadImgButton.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Blue"));
         uploadImgButton.setText("Cargar archivos");
@@ -144,6 +151,11 @@ public class ImgToPdfJFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_mergeImgButtonActionPerformed
 
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        instancia = null;
+        dispose();
+    }//GEN-LAST:event_formWindowClosed
+
     /**
      * @param args the command line arguments
      */
@@ -185,4 +197,16 @@ public class ImgToPdfJFrame extends javax.swing.JFrame {
     private javax.swing.JButton mergeImgButton;
     private javax.swing.JButton uploadImgButton;
     // End of variables declaration//GEN-END:variables
+
+
+    public static ImgToPdfJFrame getInstancia(){
+        if (instancia == null){
+            instancia = new ImgToPdfJFrame();
+            instancia.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            instancia.setVisible(true);
+            
+        }
+        return instancia;
+    }
+
 }

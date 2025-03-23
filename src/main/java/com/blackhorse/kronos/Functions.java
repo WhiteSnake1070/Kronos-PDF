@@ -6,7 +6,6 @@ package com.blackhorse.kronos;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 /**
  *
@@ -16,7 +15,7 @@ public class Functions {
     
     public String getDate(){
         
-        SimpleDateFormat dateFormat= new SimpleDateFormat("dd-MM-yyyy HHmmss", Locale.ENGLISH);
+        SimpleDateFormat dateFormat= new SimpleDateFormat("ddMMyyyyHHmmss");
         String str_date=dateFormat.format(new Date());
         
         return str_date;

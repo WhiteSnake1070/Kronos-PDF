@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.apache.pdfbox.pdmodel.PDDocument;
 
@@ -21,6 +22,7 @@ public class SplitFrame extends javax.swing.JFrame {
 
     String path;
     Functions fun = new Functions();
+    private static SplitFrame instancia;
     /**
      * Creates new form SplitFrame
      */
@@ -51,6 +53,11 @@ public class SplitFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Separar PDF");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         uploadFileButton.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Blue"));
         uploadFileButton.setText("Cargar archivo");
@@ -148,7 +155,7 @@ public class SplitFrame extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -281,6 +288,11 @@ public class SplitFrame extends javax.swing.JFrame {
         jTextField2.setText("");
     }//GEN-LAST:event_jTextField2FocusGained
 
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        instancia = null;
+        dispose();
+    }//GEN-LAST:event_formWindowClosed
+
     /**
      * @param args the command line arguments
      */
@@ -328,4 +340,16 @@ public class SplitFrame extends javax.swing.JFrame {
     private javax.swing.JButton splitFilesButton;
     private javax.swing.JButton uploadFileButton;
     // End of variables declaration//GEN-END:variables
+
+    public static SplitFrame getInstancia(){
+        if (instancia == null){
+            instancia = new SplitFrame();
+            instancia.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            instancia.setVisible(true);
+            
+        }
+        return instancia;
+    }
+
+
 }

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
@@ -27,6 +28,7 @@ public class WordFrame extends javax.swing.JFrame {
     private final List<File> pdfFiles;
     DefaultListModel<String> model = new DefaultListModel<>();
     Functions fun = new Functions();
+    private static WordFrame instancia;
     /**
      * Creates new form WordFrame
      */
@@ -51,6 +53,11 @@ public class WordFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("PDF a Word");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         uploadWordButton.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Blue"));
         uploadWordButton.setText("Cargar archivo");
@@ -162,6 +169,11 @@ public class WordFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_convertWordButtonActionPerformed
 
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        instancia = null;
+        dispose();
+    }//GEN-LAST:event_formWindowClosed
+
     /**
      * @param args the command line arguments
      */
@@ -201,8 +213,17 @@ public class WordFrame extends javax.swing.JFrame {
     private javax.swing.JButton convertWordButton;
     private javax.swing.JList<String> fileListWord;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton uploadFilesButton;
-    private javax.swing.JButton uploadFilesButton1;
     private javax.swing.JButton uploadWordButton;
     // End of variables declaration//GEN-END:variables
+
+    public static WordFrame getInstancia(){
+        if (instancia == null){
+            instancia = new WordFrame();
+            instancia.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            instancia.setVisible(true);
+            
+        }
+        return instancia;
+    }
+
 }

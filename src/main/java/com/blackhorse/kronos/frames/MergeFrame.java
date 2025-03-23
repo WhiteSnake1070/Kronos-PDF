@@ -16,13 +16,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.apache.pdfbox.multipdf.PDFMergerUtility;
+
 public class MergeFrame extends javax.swing.JFrame {
+    
     
     private final List<File> pdfFiles;
     DefaultListModel<String> model = new DefaultListModel<>();
     Functions fun = new Functions();
+    private static MergeFrame instancia;
 
     /**
      * Creates new form MergeFrame
@@ -48,6 +52,11 @@ public class MergeFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Unir PDF");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
+            }
+        });
 
         uploadFilesButton.setBackground(javax.swing.UIManager.getDefaults().getColor("Actions.Blue"));
         uploadFilesButton.setText("Cargar archivos");
@@ -139,6 +148,11 @@ public class MergeFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_uploadFilesButtonActionPerformed
 
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        instancia = null;
+        dispose();
+    }//GEN-LAST:event_formWindowClosed
+
     /**
      * @param args the command line arguments
      */
@@ -173,11 +187,22 @@ public class MergeFrame extends javax.swing.JFrame {
             }
         });
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList<String> fileListToMerge;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton mergeFilesButton;
     private javax.swing.JButton uploadFilesButton;
     // End of variables declaration//GEN-END:variables
+
+    public static MergeFrame getInstancia(){
+        if (instancia == null){
+            instancia = new MergeFrame();
+            instancia.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            instancia.setVisible(true);
+            
+        }
+        return instancia;
+    }
+    
 }
