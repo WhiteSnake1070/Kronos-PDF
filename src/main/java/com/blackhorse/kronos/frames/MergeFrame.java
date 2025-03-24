@@ -113,22 +113,24 @@ public class MergeFrame extends javax.swing.JFrame {
 
     private void mergeFilesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mergeFilesButtonActionPerformed
         if (!pdfFiles.isEmpty()) {
-                    PDFMergerUtility pdfMerger = new PDFMergerUtility();
-                    for (File pdf : pdfFiles) {
-                        try {
-                            pdfMerger.addSource(pdf);
-                        } catch (IOException ioException) {
-                        }
-                    }
-                    pdfMerger.setDestinationFileName("Kronos combinado "+fun.getDate()+".pdf");
-                    try {
-                        pdfMerger.mergeDocuments(null);
-                        JOptionPane.showMessageDialog(null, "Archivos PDF combinados exitosamente!");
-                    } catch (IOException ioException) {
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "No se han cargado archivos PDF.");
+            PDFMergerUtility pdfMerger = new PDFMergerUtility();
+            for (File pdf : pdfFiles) {
+                try {
+                    pdfMerger.addSource(pdf);
+                } catch (IOException ioException) {
+                    JOptionPane.showMessageDialog(null, "Error: "+ioException);
                 }
+            }
+            pdfMerger.setDestinationFileName("Kronos combinado "+fun.getDate()+".pdf");
+            try {
+                pdfMerger.mergeDocuments(null);
+                JOptionPane.showMessageDialog(null, "Archivos PDF combinados exitosamente!");
+            } catch (IOException ioException) {
+                JOptionPane.showMessageDialog(null, "Error: "+ioException);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No se han cargado archivos PDF.");
+        }
     }//GEN-LAST:event_mergeFilesButtonActionPerformed
 
     private void uploadFilesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadFilesButtonActionPerformed

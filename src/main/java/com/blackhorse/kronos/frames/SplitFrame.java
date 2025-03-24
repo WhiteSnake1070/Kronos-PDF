@@ -246,30 +246,27 @@ public class SplitFrame extends javax.swing.JFrame {
                       if (Integer.parseInt(jTextField1.getText()) < 1 || Integer.parseInt(jTextField2.getText()) > totalPages || 
                               Integer.parseInt(jTextField1.getText()) > Integer.parseInt(jTextField2.getText())) {
                           throw new IllegalArgumentException("Rango de páginas inválido.");
-                      }else{
+                        }else{
                           try (PDDocument newDocument = new PDDocument()) {
                               for (int i = Integer.parseInt(jTextField1.getText()) - 1; i < Integer.parseInt(jTextField2.getText()); i++) {
                                   newDocument.addPage(document.getPage(i));
-                              }
+                                }
                               newDocument.save("Kronos páginas divididas " + fun.getDate() + ".pdf");
                               JOptionPane.showMessageDialog(null, "Archivos PDF separado exitosamente!");
-                          }
-                      }
-
-                  } catch (IOException e) {
-                  }
-
-
-              }else{
+                            }
+                        }
+                    } catch (IOException e) {
+                        JOptionPane.showMessageDialog(null, "Error: "+e);
+                    }
+                }else{
                   JOptionPane.showMessageDialog(null, "Rango incorrecto!");
-              } 
+                } 
             }else{
                 JOptionPane.showMessageDialog(null, "Rango incorrecto!");
             }  
         }else{
             JOptionPane.showMessageDialog(null, "Cargue un archivo primero!");
         }
-        
     }//GEN-LAST:event_splitFilesButtonActionPerformed
 
     private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed

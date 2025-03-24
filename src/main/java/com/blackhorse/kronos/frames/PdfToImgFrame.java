@@ -157,9 +157,10 @@ public class PdfToImgFrame extends javax.swing.JFrame {
                         String fileName = "Kronos imagen "+fun.getDate() + " pagina_" + (page + 1) + ".jpg";
                         ImageIO.write(bim, "jpg", new File(fileName));
                     }
-                    JOptionPane.showMessageDialog(null, "Archivos PDF combinados exitosamente!");
+                    JOptionPane.showMessageDialog(null, "Archivos de imágenes generados exitosamente!");
                     System.out.println("Conversión completada.");
                 } catch (IOException e) {
+                    JOptionPane.showMessageDialog(null, "Error: "+e);
                 }
             }
         } else {

@@ -150,7 +150,6 @@ public class WordFrame extends javax.swing.JFrame {
             
             for (File pdf : pdfFiles) {
                 
-                
                 try (PDDocument pdfDocument = PDDocument.load(new File(pdf.getAbsolutePath()));
                     XWPFDocument wordDocument = new XWPFDocument()) {
 
@@ -167,18 +166,8 @@ public class WordFrame extends javax.swing.JFrame {
                    JOptionPane.showMessageDialog(null, "Archivos PDF combinados exitosamente!");
 
                } catch (IOException e) {
+                   JOptionPane.showMessageDialog(null, "Error: "+e);
                }
-                
-                
-                /*
-                // Cargar el archivo PDF
-                Document pdfDocument = new Document(pdf.getAbsolutePath());
-
-                // Guardar el archivo PDF como Word
-                pdfDocument.save("Kronos word "+fun.getDate()+".docx", SaveFormat.DocX);
-                
-                JOptionPane.showMessageDialog(null, "Archivos PDF combinados exitosamente!");
-                */
             }
         } else {
             JOptionPane.showMessageDialog(null, "No se han cargado archivos PDF.");

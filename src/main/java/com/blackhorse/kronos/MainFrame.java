@@ -10,7 +10,6 @@ import com.blackhorse.kronos.frames.MergeFrame;
 import com.blackhorse.kronos.frames.PdfToImgFrame;
 import com.blackhorse.kronos.frames.SplitFrame;
 import com.blackhorse.kronos.frames.WordFrame;
-import javax.swing.JFrame;
 
 
 

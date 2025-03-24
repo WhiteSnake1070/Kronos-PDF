@@ -150,20 +150,20 @@ public class ImgToPdfJFrame extends javax.swing.JFrame {
     private void mergeImgButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mergeImgButtonActionPerformed
         if (!imgFiles.isEmpty()) {
             try (PDDocument document = new PDDocument()) {
-            for (File imgFile : imgFiles) {
-                PDPage page = new PDPage();
-                document.addPage(page);
+                for (File imgFile : imgFiles) {
+                    PDPage page = new PDPage();
+                    document.addPage(page);
 
-                PDImageXObject pdImage = PDImageXObject.createFromFile(imgFile.getAbsolutePath(), document);
-                try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
-                    contentStream.drawImage(pdImage, 0, 0, page.getMediaBox().getWidth(), page.getMediaBox().getHeight());
+                    PDImageXObject pdImage = PDImageXObject.createFromFile(imgFile.getAbsolutePath(), document);
+                    try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
+                        contentStream.drawImage(pdImage, 0, 0, page.getMediaBox().getWidth(), page.getMediaBox().getHeight());
+                    }
                 }
-                
+                document.save("Kronos imagenes "+fun.getDate()+".pdf");
+                JOptionPane.showMessageDialog(null, "Archivos de imagen combinados exitosamente!");
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(null, "Error: "+e);
             }
-            document.save("Kronos imagenes "+fun.getDate()+".pdf");
-            JOptionPane.showMessageDialog(null, "Archivos de imagen combinados exitosamente!");
-        } catch (IOException e) {
-        }
         } else {
             JOptionPane.showMessageDialog(null, "No se han cargado imágenes.");
         }
