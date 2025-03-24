@@ -19,6 +19,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
 
 
 /**
@@ -118,6 +119,21 @@ public class CompressFrame extends javax.swing.JFrame {
     private void uploadComButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadComButtonActionPerformed
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setMultiSelectionEnabled(true);
+        
+        fileChooser.setFileFilter(new FileFilter() {
+            public String getDescription() {
+                return "PDF Files (*.pdf)";
+            }
+            public boolean accept(File f) {
+                if (f.isDirectory()) {
+                    return true;
+                } else {
+                    String filename = f.getName().toLowerCase();
+                    return filename.endsWith(".pdf") ;
+                }
+            }
+        });
+        
         int result = fileChooser.showOpenDialog(null);
         if (result == JFileChooser.APPROVE_OPTION) {
             File[] selectedFiles = fileChooser.getSelectedFiles();

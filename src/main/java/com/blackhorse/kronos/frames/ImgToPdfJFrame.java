@@ -13,6 +13,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -114,6 +115,23 @@ public class ImgToPdfJFrame extends javax.swing.JFrame {
     private void uploadImgButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadImgButtonActionPerformed
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setMultiSelectionEnabled(true);
+        
+        fileChooser.setFileFilter(new FileFilter() {
+
+            public String getDescription() {
+                return "JPG Images (*.jpg or *.png)";
+            }
+
+            public boolean accept(File f) {
+                if (f.isDirectory()) {
+                    return true;
+                } else {
+                    String filename = f.getName().toLowerCase();
+                    return filename.endsWith(".jpg") || filename.endsWith(".jpeg") || filename.endsWith(".png") ;
+                }
+            }
+        });
+        
         int result = fileChooser.showOpenDialog(null);
         if (result == JFileChooser.APPROVE_OPTION) {
             File[] selectedFiles = fileChooser.getSelectedFiles();

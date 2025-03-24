@@ -15,22 +15,10 @@ public class Kronos {
 
     public static void main(String[] args) {
         
-        try {
-            // Set cross-platform Java L&F (also called "Metal")
-        UIManager.setLookAndFeel("com.sun.java.swing.plaf.gtk.GTKLookAndFeel");
-        }
-        
-        catch (UnsupportedLookAndFeelException e) {
-           // handle exception
-        }
-        catch (ClassNotFoundException e) {
-           // handle exception
-        }
-        catch (InstantiationException e) {
-           // handle exception
-        }
-        catch (IllegalAccessException e) {
-           // handle exception
+        try{
+            UIManager.setLookAndFeel(UIManager.createLookAndFeel("Windows"));
+        }catch(UnsupportedLookAndFeelException e){
+            System.out.println("UIManager Exception : "+e);
         }
         
         MainFrame mn = new MainFrame();

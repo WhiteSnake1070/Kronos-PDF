@@ -15,6 +15,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
 
@@ -114,6 +115,21 @@ public class PdfToImgFrame extends javax.swing.JFrame {
     private void uploadPTIButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadPTIButtonActionPerformed
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setMultiSelectionEnabled(true);
+        
+        fileChooser.setFileFilter(new FileFilter() {
+            public String getDescription() {
+                return "PDF Files (*.pdf)";
+            }
+            public boolean accept(File f) {
+                if (f.isDirectory()) {
+                    return true;
+                } else {
+                    String filename = f.getName().toLowerCase();
+                    return filename.endsWith(".pdf") ;
+                }
+            }
+        });
+        
         int result = fileChooser.showOpenDialog(null);
         if (result == JFileChooser.APPROVE_OPTION) {
             File[] selectedFiles = fileChooser.getSelectedFiles();
@@ -145,16 +161,6 @@ public class PdfToImgFrame extends javax.swing.JFrame {
                     System.out.println("Conversión completada.");
                 } catch (IOException e) {
                 }
-
-                /*
-                // Cargar el archivo PDF
-                Document pdfDocument = new Document(pdf.getAbsolutePath());
-
-                // Guardar el archivo PDF como Word
-                pdfDocument.save("Kronos word "+fun.getDate()+".docx", SaveFormat.DocX);
-
-                JOptionPane.showMessageDialog(null, "Archivos PDF combinados exitosamente!");
-                */
             }
         } else {
             JOptionPane.showMessageDialog(null, "No se han cargado archivos PDF.");

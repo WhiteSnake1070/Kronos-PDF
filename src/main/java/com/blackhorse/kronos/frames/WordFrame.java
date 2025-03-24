@@ -14,6 +14,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -114,6 +115,21 @@ public class WordFrame extends javax.swing.JFrame {
     private void uploadWordButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadWordButtonActionPerformed
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setMultiSelectionEnabled(true);
+        
+        fileChooser.setFileFilter(new FileFilter() {
+            public String getDescription() {
+                return "PDF Files (*.pdf)";
+            }
+            public boolean accept(File f) {
+                if (f.isDirectory()) {
+                    return true;
+                } else {
+                    String filename = f.getName().toLowerCase();
+                    return filename.endsWith(".pdf") ;
+                }
+            }
+        });
+        
         int result = fileChooser.showOpenDialog(null);
         if (result == JFileChooser.APPROVE_OPTION) {
             File[] selectedFiles = fileChooser.getSelectedFiles();
